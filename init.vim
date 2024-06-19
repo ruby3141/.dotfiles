@@ -4,6 +4,10 @@ if has('nvim')
     lua vscode = require('vscode')
     lua vim.g.clipboard = vim.g.vscode_clipboard
 
+    " prevent ftplugin to mess up
+    filetype plugin off
+    filetype indent on
+
     nnoremap zM <Cmd>lua vscode.call('editor.foldAll')<CR>
     nnoremap zR <Cmd>lua vscode.call('editor.unfoldAll')<CR>
     nnoremap zc <Cmd>lua vscode.call('editor.fold')<CR>
@@ -59,7 +63,7 @@ if has('nvim')
   else
     " ordinary Neovim
 
-    colorscheme wildcharm
+    colorscheme vim
 
     nnoremap <silent><C-a> gg0vG$
     vnoremap <silent><C-a> <Esc>gg0vG$
@@ -94,3 +98,10 @@ set clipboard^=unnamed,unnamedplus
 nnoremap d "_d
 xnoremap d "_d
 xnoremap p "_dP
+
+" show bracket pair, including <>
+set showmatch
+set matchpairs+=<:>
+
+" prevent formatter plugin from adding comment prefix automatically
+autocmd OptionSet formatoptions set formatoptions-=c formatoptions-=r formatoptions-=o
